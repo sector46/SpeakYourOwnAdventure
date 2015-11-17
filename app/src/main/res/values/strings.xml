@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Speak Your Own Adventure</string>
+
+    <string name="welcome">Welcome to\nSpeak Your Own Adventure!</string>
+    <string name="action_settings">Settings</string>
+    <string name="begin_button_text">Tap here to speak</string>
+    <string name="speech_button_description">Speech button: hold down to speak</string>
+    <string name="scene">Scene</string>
+</resources>
