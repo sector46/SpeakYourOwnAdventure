@@ -6,4 +6,6 @@
     <string name="begin_button_text">Tap here to speak</string>
     <string name="speech_button_description">Speech button: hold down to speak</string>
     <string name="scene">Scene</string>
+    <string name="confirm_user_input">Confirms user input from text box</string>
+    <string name="user_text_input">Text box for secondary input</string>
 </resources>

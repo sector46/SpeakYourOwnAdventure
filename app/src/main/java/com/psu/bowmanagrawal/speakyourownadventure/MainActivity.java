@@ -13,19 +13,24 @@ import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.speech.SpeechRecognizer;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import java.util.ArrayList;
 import android.util.Log;
+import android.view.inputmethod.InputMethodManager;
+import android.content.Context;
 
 
-public class MainActivity extends Activity implements OnTouchListener {
+public class MainActivity extends Activity {
 
     private SpeechRecognizer speechRecognizer;
     private String outputStr = "";
     static final String TAG = "error_logger";
     ImageButton speechButton; //= (ImageButton) findViewById(R.id.speech_button);
+    ImageButton userInputButton;
     TextView textOutput; //= (TextView) findViewById(R.id.text_output);
+    EditText userInputText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +39,9 @@ public class MainActivity extends Activity implements OnTouchListener {
         speechRecognizer = SpeechRecognizer.createSpeechRecognizer(this);
 
         speechButton = (ImageButton) findViewById(R.id.speech_button);
+        userInputButton = (ImageButton) findViewById(R.id.userInputConfirmButton);
         textOutput = (TextView) findViewById(R.id.text_output);
+        userInputText = (EditText) findViewById(R.id.user_input);
 
         final Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         RecognitionListener recognitionListener = new RecognitionListener() {
@@ -115,16 +122,25 @@ public class MainActivity extends Activity implements OnTouchListener {
                     case MotionEvent.ACTION_UP:
                         // End
                         speechRecognizer.stopListening();
-                        //outputStr = speechRecognizer.RESULTS_RECOGNITION;
-                        //textOutput.setText(outputStr);
                         break;
                 }
                 return false;
             }
         };
 
+        OnClickListener clickListener = new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                outputStr = userInputText.getText().toString();
+                if(!outputStr.trim().isEmpty()) {
+                    textOutput.setText(outputStr);
+                    userInputText.setText("");
+                }
+            }
+        };
 
         speechButton.setOnTouchListener(touchListener);
+        userInputButton.setOnClickListener(clickListener);
     }
 
     @Override
@@ -134,21 +150,31 @@ public class MainActivity extends Activity implements OnTouchListener {
         return true;
     }
 
+    // Used to hide keyboard
+    // http://stackoverflow.com/questions/4005728/hide-default-keyboard-on-click-in-android/7241790#7241790
+    // Last accessed 11/22/2015
     @Override
-    public boolean onTouch(View view, MotionEvent event) {
-        switch(event.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                // Start
-                textOutput.setText("Listening...");
-                break;
-            case MotionEvent.ACTION_UP:
-                // End
-                textOutput.setText("Listened");
-                break;
-        }
-        return false;
-    }
+    public boolean dispatchTouchEvent(MotionEvent event) {
 
+        View v = getCurrentFocus();
+        boolean ret = super.dispatchTouchEvent(event);
+
+        if (v instanceof EditText) {
+            View w = getCurrentFocus();
+            int scrcoords[] = new int[2];
+            w.getLocationOnScreen(scrcoords);
+            float x = event.getRawX() + w.getLeft() - scrcoords[0];
+            float y = event.getRawY() + w.getTop() - scrcoords[1];
+
+            Log.d("Activity", "Touch event "+event.getRawX()+","+event.getRawY()+" "+x+","+y+" rect "+w.getLeft()+","+w.getTop()+","+w.getRight()+","+w.getBottom()+" coords "+scrcoords[0]+","+scrcoords[1]);
+            if (event.getAction() == MotionEvent.ACTION_UP && (x < w.getLeft() || x >= w.getRight() || y < w.getTop() || y > w.getBottom()) ) {
+
+                InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(getWindow().getCurrentFocus().getWindowToken(), 0);
+            }
+        }
+        return ret;
+    }
 
 
     @Override
