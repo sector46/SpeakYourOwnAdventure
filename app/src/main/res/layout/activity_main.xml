@@ -23,8 +23,34 @@
         android:layout_height="wrap_content"
         android:id="@+id/text_output"
         android:gravity="center_horizontal"
-        android:layout_weight="0.80"
-        android:textColor="#ffffffff" />
+        android:layout_weight="0.70"
+        android:textColor="#ffffffff"
+        android:textSize="20sp" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.05">
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:id="@+id/user_input"
+            android:maxLines="1"
+            android:contentDescription="@string/user_text_input"
+            android:layout_weight="0.95"
+            android:textColor="#ffffff" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:id="@+id/userInputConfirmButton"
+            android:layout_weight=".05"
+            android:contentDescription="@string/confirm_user_input"
+            android:src="@mipmap/checkmark"
+            android:scaleType="fitCenter" />
+    </LinearLayout>
 
     <ImageButton
         android:layout_width="match_parent"
