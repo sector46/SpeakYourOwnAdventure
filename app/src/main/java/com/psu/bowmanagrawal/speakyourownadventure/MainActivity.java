@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.media.Image;
 import android.os.Bundle;
 import android.content.Intent;
+import android.os.CountDownTimer;
 import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.view.Menu;
@@ -17,6 +18,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import java.util.ArrayList;
+import java.util.TimerTask;
+
 import android.util.Log;
 import android.view.inputmethod.InputMethodManager;
 import android.content.Context;
@@ -115,14 +118,26 @@ public class MainActivity extends Activity {
             @Override
             public boolean onTouch(View view, MotionEvent event) {
                 switch(event.getAction()) {
+                    // Start
                     case MotionEvent.ACTION_DOWN:
-                        // Start
                         speechRecognizer.startListening(intent);
+                        speechButton.setBackgroundColor(getResources().getColor(R.color.DarkGray));
                         break;
-                    case MotionEvent.ACTION_UP:
                         // End
-                        speechRecognizer.stopListening();
-                        break;
+                    case MotionEvent.ACTION_UP:
+                        new CountDownTimer(500,1000) {
+                            @Override
+                            public void onTick(long millisUntilFinished) {
+                               //  TODO AUTO-generated method stub
+
+                            }
+                            @Override
+                            public void onFinish() {
+                                speechRecognizer.stopListening();
+                                speechButton.setBackgroundColor(getResources().getColor(R.color.LightGray));
+                            }
+                        }.start();
+                    break;
                 }
                 return false;
             }
