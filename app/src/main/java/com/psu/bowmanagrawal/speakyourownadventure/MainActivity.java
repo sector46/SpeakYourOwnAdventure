@@ -1,6 +1,7 @@
 package com.psu.bowmanagrawal.speakyourownadventure;
 
 import android.app.Activity;
+import android.graphics.PorterDuff;
 import android.media.Image;
 import android.os.Bundle;
 import android.content.Intent;
@@ -121,7 +122,8 @@ public class MainActivity extends Activity {
                     // Start
                     case MotionEvent.ACTION_DOWN:
                         speechRecognizer.startListening(intent);
-                        speechButton.setBackgroundColor(getResources().getColor(R.color.DarkGray));
+                        speechButton.getBackground().setColorFilter(getResources().getColor(R.color.Filter), PorterDuff.Mode.SRC_ATOP);
+                        speechButton.invalidate();
                         break;
                         // End
                     case MotionEvent.ACTION_UP:
@@ -134,7 +136,8 @@ public class MainActivity extends Activity {
                             @Override
                             public void onFinish() {
                                 speechRecognizer.stopListening();
-                                speechButton.setBackgroundColor(getResources().getColor(R.color.LightGray));
+                                speechButton.getBackground().clearColorFilter();
+                                speechButton.invalidate();
                             }
                         }.start();
                     break;
