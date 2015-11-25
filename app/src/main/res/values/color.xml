@@ -3,4 +3,5 @@
 <resources>
     <color name="DarkGray">#ff444444</color>
     <color name="LightGray">#ffbbbbbb</color>
+    <color name="Filter">#aa000000</color>
 </resources>
