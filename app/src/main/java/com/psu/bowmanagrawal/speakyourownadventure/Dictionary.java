@@ -4,7 +4,7 @@ package com.psu.bowmanagrawal.speakyourownadventure;
  * Created by caseybowman on 11/28/15.
  */
 public class Dictionary {
-    private String [] FIGHT = {
+    private static String [] FIGHT = {
             "fight",
             "punch",
             "kick",
@@ -12,7 +12,7 @@ public class Dictionary {
             "scratch",
             "swat"};
 
-    private String [] TALK = {
+    private static String [] TALK = {
             "talk",
             "shout",
             "whisper",
@@ -21,7 +21,7 @@ public class Dictionary {
             "cry",
             "laugh"};
 
-    private String [] RUN = {
+    private static String [] RUN = {
             "run",
             "walk",
             "climb",
@@ -35,7 +35,7 @@ public class Dictionary {
     * 1-3 matches one of the three major types of verb usage
     * 4 matches everything else, also known as garbage
      */
-    public int whichActionType(String userInput) {
+    public static int whichActionType(String userInput) {
         if (userInput.equals("")) {
             return 0;
         }

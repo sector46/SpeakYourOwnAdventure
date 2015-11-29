@@ -30,11 +30,18 @@ public class MainActivity extends Activity {
 
     private SpeechRecognizer speechRecognizer;
     private String outputStr = "";
+    private String generatedText = "";
+    private int sceneNum;
     static final String TAG = "error_logger";
+
+    private Scene scene;
+
     ImageButton speechButton; //= (ImageButton) findViewById(R.id.speech_button);
     ImageButton userInputButton;
     TextView textOutput; //= (TextView) findViewById(R.id.text_output);
+    TextView userinputLabel;
     EditText userInputText;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +52,16 @@ public class MainActivity extends Activity {
         speechButton = (ImageButton) findViewById(R.id.speech_button);
         userInputButton = (ImageButton) findViewById(R.id.userInputConfirmButton);
         textOutput = (TextView) findViewById(R.id.text_output);
+        userinputLabel = (TextView) findViewById(R.id.user_input_label);
         userInputText = (EditText) findViewById(R.id.user_input);
+
+        sceneNum = 1;
+
+        scene = Scene.genScene();
+        generatedText = SentenceGenerator.genIntroduction(scene.getLocation());
+
+        textOutput.setText(generatedText);
+
 
         final Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         RecognitionListener recognitionListener = new RecognitionListener() {
@@ -53,16 +69,23 @@ public class MainActivity extends Activity {
             public void onResults(Bundle results) {
                 ArrayList<String> voiceResults = results
                         .getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
+
                 if (voiceResults == null) {
                     Log.e(TAG, "No voice results");
-                    textOutput.setText("No voice results");
+                    textOutput.setText(generatedText);
+//                    textOutput.setText("No voice results");
                 } else {
                     Log.d(TAG, "Printing matches: ");
                     for (String match : voiceResults) {
                         Log.d(TAG, match);
                     }
                     outputStr = voiceResults.get(0);
-                    textOutput.setText(outputStr);
+                    scene.genLocation();
+                    generatedText = SentenceGenerator.genIntroduction(scene.getLocation());
+                    sceneNum += 1;
+                    userinputLabel.setText("Scene " + sceneNum + ": " + outputStr);
+                    textOutput.setText(generatedText);
+//                    textOutput.setText(outputStr);
                 }
             }
 
@@ -151,7 +174,12 @@ public class MainActivity extends Activity {
             public void onClick(View v) {
                 outputStr = userInputText.getText().toString();
                 if(!outputStr.trim().isEmpty()) {
-                    textOutput.setText(outputStr);
+//                    textOutput.setText(outputStr);
+                    scene.genLocation();
+                    generatedText = SentenceGenerator.genIntroduction(scene.getLocation());
+                    sceneNum += 1;
+                    userinputLabel.setText("Scene " + sceneNum + ": " + outputStr);
+                    textOutput.setText(generatedText);
                     userInputText.setText("");
                 }
             }
