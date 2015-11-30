@@ -8,10 +8,12 @@ package com.psu.bowmanagrawal.speakyourownadventure;
 public class Scene {
     private String obstacle;
     private Location location;
+    private Enemy enemy;
     private String prevSceneAction;
 
     public Scene() {
         this.location = Location.getRandLocation();
+        this.enemy = Enemy.getRandEnemy();
         this.obstacle = "";
         this.prevSceneAction = "";
     }
@@ -20,19 +22,33 @@ public class Scene {
 
     }
 
-    public static Scene genScene() {
-        return new Scene();
+    public void genScene() {
+        this.location = Location.getRandLocation();
+        this.enemy = Enemy.getRandEnemy();
+        this.obstacle = "";
+        this.prevSceneAction = "";
     }
 
-    public static Scene genScene(String input) {
-        return new Scene();
+    public void genNewScene() {
+        this.location = Location.getRandLocation();
+        this.enemy = Enemy.getRandEnemy();
+        this.obstacle = "";
+        this.prevSceneAction = "";
     }
 
     public void genLocation() {
         this.location = Location.getRandLocation();
     }
 
+    public void genEnemy() {
+        this.enemy = Enemy.getRandEnemy();
+    }
+
     public Location getLocation() {
-        return location;
+        return this.location;
+    }
+
+    public Enemy getEnemy() {
+        return this.enemy;
     }
 }

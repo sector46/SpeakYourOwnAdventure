@@ -21,37 +21,37 @@ public class Location {
         Location location;
         switch(randomNum) {
             case 0:
-                adjectives = new String [] {"dense", "", "", ""};
+                adjectives = new String [] {"dense ", "", "", ""};
                 preposition = "in the ";
                 location = new Location("woods", adjectives, preposition);
                 return location;
             case 1:
-                adjectives = new String [] {"thick", "hot", "swampy", "hostile"};
+                adjectives = new String [] {"thick ", "hot ", "swampy ", "hostile "};
                 preposition = "in a ";
                 location = new Location("jungle", adjectives, preposition);
                 return location;
             case 2:
-                adjectives = new String [] {"hot", "smoking", "", ""};
-                preposition = "by a ";
+                adjectives = new String [] {"hot ", "smoking ", "", ""};
+                preposition = "close to a ";
                 location = new Location("volcano", adjectives, preposition);
                 return location;
             case 3:
-                adjectives = new String [] {"clear", "", "", ""};
+                adjectives = new String [] {"clear ", "", "", ""};
                 preposition = "by a ";
                 location = new Location("lake", adjectives, preposition);
                 return location;
             case 4:
-                adjectives = new String [] {"", "", "", ""};
+                adjectives = new String [] {"sandy ", "", "", ""};
                 preposition = "on a ";
                 location = new Location("beach", adjectives, preposition);
                 return location;
             case 5:
-                adjectives = new String [] {"wide", "open", "windy", "spacious"};
+                adjectives = new String [] {"wide ", "open ", "windy ", "spacious "};
                 preposition = "on some ";
                 location = new Location("plains", adjectives, preposition);
                 return location;
             case 6:
-                adjectives = new String [] {"dark", "damp", "creepy", "old"};
+                adjectives = new String [] {"dark ", "damp ", "creepy ", "old "};
                 preposition = "in a ";
                 location = new Location("castle", adjectives, preposition);
                 return location;

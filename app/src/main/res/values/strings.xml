@@ -8,4 +8,5 @@
     <string name="intro">Scene 1: Introduction</string>
     <string name="confirm_user_input">Confirms user input from text box</string>
     <string name="user_text_input">Text box for secondary input</string>
+    <string name="edit_text_hint">Say or type a single verb...</string>
 </resources>

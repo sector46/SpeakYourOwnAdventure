@@ -57,8 +57,8 @@ public class MainActivity extends Activity {
 
         sceneNum = 1;
 
-        scene = Scene.genScene();
-        generatedText = SentenceGenerator.genIntroduction(scene.getLocation());
+        scene = new Scene();
+        generatedText = SentenceGenerator.genIntroduction(scene);
 
         textOutput.setText(generatedText);
 
@@ -81,7 +81,8 @@ public class MainActivity extends Activity {
                     }
                     outputStr = voiceResults.get(0);
                     scene.genLocation();
-                    generatedText = SentenceGenerator.genIntroduction(scene.getLocation());
+                    scene.genEnemy();
+                    generatedText = SentenceGenerator.genIntroduction(scene);
                     sceneNum += 1;
                     userinputLabel.setText("Scene " + sceneNum + ": " + outputStr);
                     textOutput.setText(generatedText);
@@ -176,7 +177,8 @@ public class MainActivity extends Activity {
                 if(!outputStr.trim().isEmpty()) {
 //                    textOutput.setText(outputStr);
                     scene.genLocation();
-                    generatedText = SentenceGenerator.genIntroduction(scene.getLocation());
+                    scene.genEnemy();
+                    generatedText = SentenceGenerator.genIntroduction(scene);
                     sceneNum += 1;
                     userinputLabel.setText("Scene " + sceneNum + ": " + outputStr);
                     textOutput.setText(generatedText);

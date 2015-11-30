@@ -20,8 +20,8 @@ public class Enemy {
         this.canGarbage = canGarbage;
     }
 
-    public Enemy getEnemy() {
-        int randomNum = Randomizer.getNum(0,6);
+    public static Enemy getRandEnemy() {
+        int randomNum = Randomizer.getNum(0,7);
         String [] adjectives;
         Enemy enemy;
         switch(randomNum) {
@@ -53,6 +53,7 @@ public class Enemy {
                 adjectives = new String [] {"dark", "damp", "creepy", "old"};
                 enemy = new Enemy("puppy", adjectives, true, true, true, true);
                 return enemy;
+            case 7:
             default:
                 return null;
         }
@@ -65,5 +66,21 @@ public class Enemy {
     public String getRandAdjective() {
         int randNum = Randomizer.getNum(0,adjectives.length-1);
         return adjectives[randNum];
+    }
+
+    public boolean canFight() {
+        return this.canFight;
+    }
+
+    public boolean isCanTalk() {
+        return this.canTalk;
+    }
+
+    public boolean isCanRun() {
+        return this.canRun;
+    }
+
+    public boolean canGarbage() {
+        return this.canGarbage;
     }
 }
