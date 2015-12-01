@@ -15,10 +15,10 @@ public class SentenceGenerator {
         switch (randNum) {
             case 0:
                 returnStr = "You find yourself " + location.getPreposition() + location.getRandAdjective() + location.getName() + ".";
+                break;
             case 1:
                 returnStr = "You find yourself " + location.getPreposition() + location.getRandAdjective() + location.getName() + ".";
-            default:
-
+                break;
         }
 
         // Creating the setting
@@ -54,12 +54,16 @@ public class SentenceGenerator {
         switch (randNum) {
             case 0:
                 returnStr += " In front of you, you see a " + enemy.getName() + ".";
+                break;
             case 1:
                 returnStr += " Not too far off from where you are, you see a " + enemy.getName() + ".";
+                break;
             case 2:
                 returnStr += " In the distance, you see a " + enemy.getName() + ".";
+                break;
             case 3:
                 returnStr += " Behind you, you hear a noise, only to turn around to see a " + enemy.getName() + ".";
+                break;
         }
 
         returnStr += " What do you do?";
@@ -80,80 +84,109 @@ public class SentenceGenerator {
                     case "fight":
                         returnStr += action + " the rock, which wasn't the brightest of ideas because " +
                                      "you end up hurting yourself in the process.";
+                        break;
                     case "talk":
                         returnStr += action + " to the rock. This resulted in you looking like a crazy " +
                                      "person interacting with a rock. Congratulations.";
+                        break;
                     case "run":
                         returnStr += action + " away from the rock.";
+                        break;
                     case "garbage":
                         returnStr += ". I'm not sure what " + action + " would do, but it seemed to have " +
                                      " a profound effect on the rock because the rock just exploded.";
+                        break;
                 }
+                break;
             case "bear":
                 switch (action){
                     case "fight":
 
+                        break;
                     case "talk":
 
+                        break;
                     case "run":
 
+                        break;
                     case "garbage":
 
+                        break;
                 }
             case "squirrel":
                 switch (action){
                     case "fight":
 
+                        break;
                     case "talk":
 
+                        break;
                     case "run":
 
+                        break;
                     case "garbage":
 
+                        break;
                 }
             case "clown":
                 switch (action){
                     case "fight":
 
+                        break;
                     case "talk":
 
+                        break;
                     case "run":
 
+                        break;
                     case "garbage":
 
+                        break;
                 }
             case "swordsman":
                 switch (action){
                     case "fight":
 
+                        break;
                     case "talk":
 
+                        break;
                     case "run":
 
+                        break;
                     case "garbage":
 
+                        break;
                 }
             case "wall":
                 switch (action){
                     case "fight":
 
+                        break;
                     case "talk":
 
+                        break;
                     case "run":
 
+                        break;
                     case "garbage":
 
+                        break;
                 }
             case "puppy":
                 switch (action){
                     case "fight":
 
+                        break;
                     case "talk":
 
+                        break;
                     case "run":
 
+                        break;
                     case "garbage":
 
+                        break;
                 }
         }
 

@@ -25,7 +25,7 @@ public class Enemy {
     }
 
     public static Enemy getRandEnemy() {
-        int randomNum = Randomizer.getNum(0,7);
+        int randomNum = Randomizer.getNum(0,6);
         String [] adjectives;
         Enemy enemy;
         switch(randomNum) {
@@ -57,7 +57,6 @@ public class Enemy {
                 adjectives = new String [] {"dark", "damp", "creepy", "old"};
                 enemy = new Enemy("puppy", adjectives, 3, false, true, true, true);
                 return enemy;
-            case 7:
             default:
                 return null;
         }
