@@ -35,25 +35,25 @@ public class Dictionary {
     * 1-3 matches one of the three major types of verb usage
     * 4 matches everything else, also known as garbage
      */
-    public static int whichActionType(String userInput) {
+    public static String whichActionType(String userInput) {
         if (userInput.equals("")) {
-            return 0;
+            return "Null";
         }
         for (String word : FIGHT) {
             if (userInput.equals(word)) {
-                return 1;
+                return "fight";
             }
         }
         for (String word : TALK) {
             if (userInput.equals(word)) {
-                return 2;
+                return "talk";
             }
         }
         for (String word : RUN) {
             if (userInput.equals(word)) {
-                return 3;
+                return "run";
             }
         }
-        return 4;
+        return "garbage";
     }
 }

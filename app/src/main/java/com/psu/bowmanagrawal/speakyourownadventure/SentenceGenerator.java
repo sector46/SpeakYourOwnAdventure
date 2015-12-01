@@ -1,5 +1,7 @@
 package com.psu.bowmanagrawal.speakyourownadventure;
 
+import android.widget.Switch;
+
 /**
  * Created by caseybowman on 11/28/15.
  */
@@ -59,12 +61,127 @@ public class SentenceGenerator {
             case 3:
                 returnStr += " Behind you, you hear a noise, only to turn around to see a " + enemy.getName() + ".";
         }
-        
+
         returnStr += " What do you do?";
         return returnStr;
     }
 
+    public String genSentences(Scene scene) {
+        String returnStr = "";
+        String enemy = scene.getEnemy().getName();
+        String action = scene.getAction();
+        String input = scene.getInput();
 
+        returnStr += "You decided to ";
+
+        switch(enemy) {
+            case "rock":
+                switch (action){
+                    case "fight":
+                        returnStr += action + " the rock, which wasn't the brightest of ideas because " +
+                                     "you end up hurting yourself in the process.";
+                    case "talk":
+                        returnStr += action + " to the rock. This resulted in you looking like a crazy " +
+                                     "person interacting with a rock. Congratulations.";
+                    case "run":
+                        returnStr += action + " away from the rock.";
+                    case "garbage":
+                        returnStr += ". I'm not sure what " + action + " would do, but it seemed to have " +
+                                     " a profound effect on the rock because the rock just exploded.";
+                }
+            case "bear":
+                switch (action){
+                    case "fight":
+
+                    case "talk":
+
+                    case "run":
+
+                    case "garbage":
+
+                }
+            case "squirrel":
+                switch (action){
+                    case "fight":
+
+                    case "talk":
+
+                    case "run":
+
+                    case "garbage":
+
+                }
+            case "clown":
+                switch (action){
+                    case "fight":
+
+                    case "talk":
+
+                    case "run":
+
+                    case "garbage":
+
+                }
+            case "swordsman":
+                switch (action){
+                    case "fight":
+
+                    case "talk":
+
+                    case "run":
+
+                    case "garbage":
+
+                }
+            case "wall":
+                switch (action){
+                    case "fight":
+
+                    case "talk":
+
+                    case "run":
+
+                    case "garbage":
+
+                }
+            case "puppy":
+                switch (action){
+                    case "fight":
+
+                    case "talk":
+
+                    case "run":
+
+                    case "garbage":
+
+                }
+        }
+
+        return returnStr;
+    }
+
+    public String genEnd(Story story) {
+        String returnStr = "After defeating";
+        int obstacleListLen = story.getObstacleListLen();
+
+        if(obstacleListLen < 2) {
+            returnStr += " a " + story.getObstacle(0);
+        } else if(obstacleListLen < 3) {
+            returnStr += " a " + story.getObstacle(0) + " and a " + story.getObstacle(1);
+        } else {
+            returnStr += " a ";
+            for(int i=0; i<obstacleListLen-1; i++) {
+                returnStr += story.getObstacle(i) + ", ";
+            }
+            returnStr += "and a " + story.getObstacle(obstacleListLen-1);
+        }
+
+        returnStr += ", you encounter a bright light, which takes you home.";
+
+        returnStr += "THE END";
+
+        return returnStr;
+    }
     /*
     if(location.getName().equals("woods")) {
             returnStr += " Looking around, you see a ";

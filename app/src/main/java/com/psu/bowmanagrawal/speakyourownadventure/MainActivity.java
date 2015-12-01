@@ -2,7 +2,6 @@ package com.psu.bowmanagrawal.speakyourownadventure;
 
 import android.app.Activity;
 import android.graphics.PorterDuff;
-import android.media.Image;
 import android.os.Bundle;
 import android.content.Intent;
 import android.os.CountDownTimer;
@@ -19,7 +18,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import java.util.ArrayList;
-import java.util.TimerTask;
 
 import android.util.Log;
 import android.view.inputmethod.InputMethodManager;
@@ -35,6 +33,7 @@ public class MainActivity extends Activity {
     static final String TAG = "error_logger";
 
     private Scene scene;
+    private Story story;
 
     ImageButton speechButton; //= (ImageButton) findViewById(R.id.speech_button);
     ImageButton userInputButton;
@@ -47,8 +46,8 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        speechRecognizer = SpeechRecognizer.createSpeechRecognizer(this);
 
+        speechRecognizer = SpeechRecognizer.createSpeechRecognizer(this);
         speechButton = (ImageButton) findViewById(R.id.speech_button);
         userInputButton = (ImageButton) findViewById(R.id.userInputConfirmButton);
         textOutput = (TextView) findViewById(R.id.text_output);
@@ -58,8 +57,9 @@ public class MainActivity extends Activity {
         sceneNum = 1;
 
         scene = new Scene();
-        generatedText = SentenceGenerator.genIntroduction(scene);
+        story = new Story();
 
+        generatedText = SentenceGenerator.genIntroduction(scene);
         textOutput.setText(generatedText);
 
 
@@ -80,12 +80,7 @@ public class MainActivity extends Activity {
                         Log.d(TAG, match);
                     }
                     outputStr = voiceResults.get(0);
-                    scene.genLocation();
-                    scene.genEnemy();
-                    generatedText = SentenceGenerator.genIntroduction(scene);
-                    sceneNum += 1;
-                    userinputLabel.setText("Scene " + sceneNum + ": " + outputStr);
-                    textOutput.setText(generatedText);
+                    postInput();
 //                    textOutput.setText(outputStr);
                 }
             }
@@ -176,12 +171,7 @@ public class MainActivity extends Activity {
                 outputStr = userInputText.getText().toString();
                 if(!outputStr.trim().isEmpty()) {
 //                    textOutput.setText(outputStr);
-                    scene.genLocation();
-                    scene.genEnemy();
-                    generatedText = SentenceGenerator.genIntroduction(scene);
-                    sceneNum += 1;
-                    userinputLabel.setText("Scene " + sceneNum + ": " + outputStr);
-                    textOutput.setText(generatedText);
+                    postInput();
                     userInputText.setText("");
                 }
             }
@@ -189,6 +179,22 @@ public class MainActivity extends Activity {
 
         speechButton.setOnTouchListener(touchListener);
         userInputButton.setOnClickListener(clickListener);
+    }
+
+    public void checkEnemyDefeated() {
+        if(scene.getEnemy().isPassed()) {
+
+            scene.genEnemy();
+        }
+    }
+
+    public void postInput() {
+        scene.genLocation();
+        scene.genEnemy();
+        generatedText = SentenceGenerator.genIntroduction(scene);
+        sceneNum += 1;
+        userinputLabel.setText("Scene " + sceneNum + ": " + outputStr);
+        textOutput.setText(generatedText);
     }
 
     @Override

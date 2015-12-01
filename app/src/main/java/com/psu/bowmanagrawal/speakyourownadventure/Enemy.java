@@ -6,18 +6,22 @@ package com.psu.bowmanagrawal.speakyourownadventure;
 public class Enemy {
     private String name;
     private String [] adjectives;
+    private int healthPoints;
+    private boolean passed;
     private boolean canFight;
     private boolean canTalk;
     private boolean canRun;
     private boolean canGarbage;
 
-    public Enemy(String name, String [] adjectives, boolean canFight, boolean canTalk, boolean canRun, boolean canGarbage) {
+    public Enemy(String name, String [] adjectives, int healthPoints, boolean canFight, boolean canTalk, boolean canRun, boolean canGarbage) {
         this.name = name;
         this.adjectives = adjectives;
+        this.healthPoints = healthPoints;
         this.canFight = canFight;
         this.canTalk = canTalk;
         this.canRun = canRun;
         this.canGarbage = canGarbage;
+        this.passed = false;
     }
 
     public static Enemy getRandEnemy() {
@@ -27,31 +31,31 @@ public class Enemy {
         switch(randomNum) {
             case 0:
                 adjectives = new String [] {"dense", "", "", ""};
-                enemy = new Enemy("rock", adjectives, false, false, true, true);
+                enemy = new Enemy("rock", adjectives, 1, false, false, true, true);
                 return enemy;
             case 1:
                 adjectives = new String [] {"thick", "hot", "swampy", "hostile"};
-                enemy = new Enemy("bear", adjectives, true, true, false, true);
+                enemy = new Enemy("bear", adjectives, 2, true, true, false, true);
                 return enemy;
             case 2:
                 adjectives = new String [] {"hot", "smoking", "", ""};
-                enemy = new Enemy("squirrel", adjectives, true, true, true, true);
+                enemy = new Enemy("squirrel", adjectives, 1, true, true, true, true);
                 return enemy;
             case 3:
                 adjectives = new String [] {"clear", "", "", ""};
-                enemy = new Enemy("clown", adjectives, true, true, false, true);
+                enemy = new Enemy("clown", adjectives, 3, true, true, false, true);
                 return enemy;
             case 4:
                 adjectives = new String [] {"", "", "", ""};
-                enemy = new Enemy("swordsman", adjectives, false, true, false, false);
+                enemy = new Enemy("swordsman", adjectives, 1, false, true, false, false);
                 return enemy;
             case 5:
                 adjectives = new String [] {"wide", "open", "windy", "spacious"};
-                enemy = new Enemy("wall", adjectives, false, false, true, true);
+                enemy = new Enemy("wall", adjectives, 1, false, false, true, true);
                 return enemy;
             case 6:
                 adjectives = new String [] {"dark", "damp", "creepy", "old"};
-                enemy = new Enemy("puppy", adjectives, true, true, true, true);
+                enemy = new Enemy("puppy", adjectives, 3, false, true, true, true);
                 return enemy;
             case 7:
             default:
@@ -82,5 +86,24 @@ public class Enemy {
 
     public boolean canGarbage() {
         return this.canGarbage;
+    }
+
+    public boolean isPassed() {
+        return this.passed;
+    }
+
+    public int getHP() {
+        return this.healthPoints;
+    }
+
+    public void decrementHP() {
+        this.healthPoints -= 1;
+        if (this.healthPoints < 1) {
+            this.passed = true;
+        }
+    }
+
+    public void setPassed() {
+        this.passed = true;
     }
 }
