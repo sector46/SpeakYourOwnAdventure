@@ -1,0 +1,53 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#000000">
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right">
+
+        <Button
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:text="@string/credits_label"
+            android:textAllCaps="false"
+            android:id="@+id/credits_button"
+            android:singleLine="true" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/welcome"
+        android:id="@+id/textView"
+        android:textColor="@android:color/white"
+        android:gravity="center_horizontal|bottom"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="5"
+        android:layout_marginBottom="50dp" />
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="70dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textStyle="bold"
+        android:text="@string/start"
+        android:id="@+id/start_button" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="5"
+        android:contentDescription="@string/formatting"
+        android:clickable="true">
+    </LinearLayout>
+
+</LinearLayout>

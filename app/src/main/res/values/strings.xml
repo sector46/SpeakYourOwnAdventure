@@ -8,5 +8,11 @@
     <string name="intro">Scene 1: Introduction</string>
     <string name="confirm_user_input">Confirms user input from text box</string>
     <string name="user_text_input">Text box for secondary input</string>
-    <string name="edit_text_hint">Say or type a single verb...</string>
+    <string name="start">START</string>
+    <string name="credits_label">Credits</string>
+    <string name="edit_text_hint">Say or type a single verb</string>
+    <string name="formatting">Used for formatting</string>
+    <string name="credits">
+        Check mark icon designed by http://designmodo.com\nMicrophone icon designed by Freepik (http://www.freepik.com/)
+    </string>
 </resources>
