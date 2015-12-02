@@ -5,7 +5,7 @@
 .DS_Store
 /build
 /capturelt application files
-*.apk
+#*.apk
 *.ap_
 
 # files for the dex VM
