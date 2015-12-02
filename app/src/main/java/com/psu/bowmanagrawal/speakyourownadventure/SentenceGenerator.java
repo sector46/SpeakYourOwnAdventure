@@ -7,18 +7,18 @@ import android.widget.Switch;
  */
 public class SentenceGenerator {
 
-    public static String genIntroduction(Scene scene) {
+    public static String genIntroduction(Story story, Scene scene, boolean isIntro) {
+        scene.genNewScene(story);
         String returnStr = "";
         Location location = scene.getLocation();
         Enemy enemy = scene.getEnemy();
-        int randNum = Randomizer.getNum(0,1);
-        switch (randNum) {
-            case 0:
-                returnStr = "You find yourself " + location.getPreposition() + location.getRandAdjective() + location.getName() + ".";
-                break;
-            case 1:
-                returnStr = "You find yourself " + location.getPreposition() + location.getRandAdjective() + location.getName() + ".";
-                break;
+        int randNum;
+
+        if(isIntro){
+            returnStr += "You find yourself " + location.getPreposition() + location.getRandAdjective() + location.getName() + ".";
+        } else {
+            returnStr += "A bright, white light shines down upon you. You realize you are " + location.getPreposition() +
+                         location.getRandAdjective() + location.getName() + ".";
         }
 
         // Creating the setting
@@ -70,49 +70,65 @@ public class SentenceGenerator {
         return returnStr;
     }
 
-    public String genSentences(Scene scene) {
+    public static String genSentences(Story story, Scene scene) {
         String returnStr = "";
         String enemy = scene.getEnemy().getName();
         String action = scene.getAction();
         String input = scene.getInput();
 
-        returnStr += "You decided to ";
+        returnStr += "";
 
         switch(enemy) {
             case "rock":
                 switch (action){
                     case "fight":
-                        returnStr += action + " the rock, which wasn't the brightest of ideas because " +
-                                     "you end up hurting yourself in the process.";
+                        returnStr += "You decided to " + input + " the rock, which wasn't the brightest of ideas because " +
+                                     "you end up hurting yourself in the process. You could try a different method of approaching " +
+                                     "the rock, but why not continue doing what you're doing? I mean, you've come this far, why not " +
+                                     "finish what you started? ";
                         break;
                     case "talk":
-                        returnStr += action + " to the rock. This resulted in you looking like a crazy " +
-                                     "person interacting with a rock. Congratulations.";
+                        returnStr += "You decided to " + input + " to the rock. This resulted in you looking like a crazy " +
+                                     "person interacting with a rock. Congratulations. Are you hoping to accomplish something " +
+                                     "by befriending a rock?";
                         break;
                     case "run":
-                        returnStr += action + " away from the rock.";
+                        returnStr += "You decided to " + input + " away from the rock. It's not like you needed to get involved with " +
+                                     "the rock anyway. ";
+                        if(story.getObstacleListLen() < story.getMaxObstaclesPassed()) {
+                            story.setOver();
+                            returnStr += SentenceGenerator.genEnd(story);
+                        } else {
+                            scene.genNewScene(story);
+                        }
+
                         break;
                     case "garbage":
-                        returnStr += ". I'm not sure what " + action + " would do, but it seemed to have " +
-                                     " a profound effect on the rock because the rock just exploded.";
+                        returnStr += ". I'm not sure what " + input + " would do, but it seemed to have " +
+                                     " a profound effect on the rock because the rock just exploded. ";
                         break;
                 }
                 break;
             case "bear":
                 switch (action){
                     case "fight":
-
+                        returnStr += "You decided to " + input + " the bear. Its eyes grew wide and swelled as tears burst from ." +
+                                     "the bear's face. How could you do that to such a gentle creature? Are you proud of yourself? " +
+                                     "With your embarrassingly bad etiquette for greetings established, you must come to a decision " +
+                                     "about what to do with the crying bear. ";
                         break;
                     case "talk":
-
+                        returnStr += "";
                         break;
                     case "run":
-
+                        returnStr += "You decided to " + input + "away from the bear. ";
                         break;
                     case "garbage":
-
+                        returnStr += "You decided to " + input + " at the bear. It showed its appreciation of your action by " +
+                                     "slightly trying to murder you. ";
                         break;
                 }
+                break;
             case "squirrel":
                 switch (action){
                     case "fight":
@@ -128,6 +144,7 @@ public class SentenceGenerator {
 
                         break;
                 }
+                break;
             case "clown":
                 switch (action){
                     case "fight":
@@ -143,6 +160,7 @@ public class SentenceGenerator {
 
                         break;
                 }
+                break;
             case "swordsman":
                 switch (action){
                     case "fight":
@@ -158,10 +176,14 @@ public class SentenceGenerator {
 
                         break;
                 }
+                break;
             case "wall":
                 switch (action){
                     case "fight":
-
+                        returnStr += "Trying to " + input + " a wall? But why? the wall just retaliates by using " +
+                                     "Issac Newton's third law of motion: for every action, there is an equal and " +
+                                     "opposite reaction. Hopefully you learn to not attack every wall you meet in " +
+                                     "the future. For now, the wall is still there and you have a decision to make. ";
                         break;
                     case "talk":
 
@@ -173,10 +195,12 @@ public class SentenceGenerator {
 
                         break;
                 }
+                break;
             case "puppy":
                 switch (action){
                     case "fight":
-
+                        returnStr += "As you move closer to " + input + " the puppy, its adorable face curls into one " +
+                                     "of the most horrifying snarls you've ever seen. Seriously, this puppy has anger issues. ";
                         break;
                     case "talk":
 
@@ -188,12 +212,17 @@ public class SentenceGenerator {
 
                         break;
                 }
+                break;
+        }
+
+        if(story.isStillGoing()) {
+            returnStr += "What do you do?";
         }
 
         return returnStr;
     }
 
-    public String genEnd(Story story) {
+    public static String genEnd(Story story) {
         String returnStr = "After defeating";
         int obstacleListLen = story.getObstacleListLen();
 
@@ -209,7 +238,7 @@ public class SentenceGenerator {
             returnStr += "and a " + story.getObstacle(obstacleListLen-1);
         }
 
-        returnStr += ", you encounter a bright light, which takes you home.";
+        returnStr += ", you encounter a bright light, which takes you home. ";
 
         returnStr += "THE END";
 

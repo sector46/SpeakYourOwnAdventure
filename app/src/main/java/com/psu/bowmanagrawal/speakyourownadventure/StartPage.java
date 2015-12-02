@@ -47,10 +47,6 @@ public class StartPage extends Activity {
         // ListView Item Click Listener
         startButton.setOnClickListener(startListener);
         creditsButton.setOnClickListener(creditsListener);
-/*                Toast.makeText(getApplicationContext(),
-                        "Position :" + itemPosition + "  ListItem : " + itemValue, Toast.LENGTH_LONG)
-                        .show();
-*/
     }
 
 }

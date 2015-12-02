@@ -13,25 +13,27 @@ public class Scene {
     private String input;
 
     public Scene() {
-        this.location = Location.getRandLocation();
-        this.enemy = Enemy.getRandEnemy();
+        this.location = null;
+        this.enemy = null;
         this.obstacle = "";
         this.action = "";
         this.input = "";
     }
 
-    public void genScene() {
+    public void genNewScene(Story story) {
         this.location = Location.getRandLocation();
         this.enemy = Enemy.getRandEnemy();
+        while(story.checkObstacleInList(this.enemy.getName())) {
+            this.enemy = Enemy.getRandEnemy();
+        }
+        while(story.checkLocationInList(this.location.getName())) {
+            this.location = Location.getRandLocation();
+        }
+        story.addObstacle(this.enemy.getName());
+        story.addLocation(this.location.getName());
         this.obstacle = "";
         this.action = "";
-    }
-
-    public void genNewScene() {
-        this.location = Location.getRandLocation();
-        this.enemy = Enemy.getRandEnemy();
-        this.obstacle = "";
-        this.action = "";
+        this.input = "";
     }
 
     public void genLocation() {

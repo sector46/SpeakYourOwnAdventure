@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import android.util.Log;
 import android.view.inputmethod.InputMethodManager;
 import android.content.Context;
+import android.widget.Toast;
 
 
 public class MainActivity extends Activity {
@@ -35,12 +36,13 @@ public class MainActivity extends Activity {
     private Scene scene;
     private Story story;
 
-    ImageButton speechButton; //= (ImageButton) findViewById(R.id.speech_button);
-    ImageButton userInputButton;
-    TextView textOutput; //= (TextView) findViewById(R.id.text_output);
-    TextView userinputLabel;
-    EditText userInputText;
+    private ImageButton speechButton; //= (ImageButton) findViewById(R.id.speech_button);
+    private ImageButton userInputButton;
+    private TextView textOutput; //= (TextView) findViewById(R.id.text_output);
+    private TextView userinputLabel;
+    private EditText userInputText;
 
+    private Toast toast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,12 +56,16 @@ public class MainActivity extends Activity {
         userinputLabel = (TextView) findViewById(R.id.user_input_label);
         userInputText = (EditText) findViewById(R.id.user_input);
 
+        toast=new Toast(this);
+//        toast.setView(view);
+        toast.setDuration(Toast.LENGTH_LONG);
+
         sceneNum = 1;
 
         scene = new Scene();
         story = new Story();
 
-        generatedText = SentenceGenerator.genIntroduction(scene);
+        generatedText = SentenceGenerator.genIntroduction(story, scene, true);
         textOutput.setText(generatedText);
 
 
@@ -74,6 +80,10 @@ public class MainActivity extends Activity {
                     Log.e(TAG, "No voice results");
                     textOutput.setText(generatedText);
 //                    textOutput.setText("No voice results");
+                    Toast.makeText(getApplicationContext(),
+                        "Nothing was heard or typed!\nSay or type one verb!", Toast.LENGTH_LONG)
+                        .show();
+
                 } else {
                     Log.d(TAG, "Printing matches: ");
                     for (String match : voiceResults) {
@@ -94,6 +104,9 @@ public class MainActivity extends Activity {
             public void onError(int error) {
                 Log.d(TAG,
                         "Error listening for speech: " + error);
+                Toast.makeText(getApplicationContext(),
+                        "Nothing was heard or typed!\nSay or type one verb!", Toast.LENGTH_LONG)
+                        .show();
             }
 
             @Override
@@ -140,25 +153,31 @@ public class MainActivity extends Activity {
                 switch(event.getAction()) {
                     // Start
                     case MotionEvent.ACTION_DOWN:
-                        speechRecognizer.startListening(intent);
-                        speechButton.getBackground().setColorFilter(getResources().getColor(R.color.Filter), PorterDuff.Mode.SRC_ATOP);
-                        speechButton.invalidate();
+                        if(story.isStillGoing()) {
+                            speechRecognizer.startListening(intent);
+                            speechButton.getBackground().setColorFilter(getResources().getColor(R.color.Filter), PorterDuff.Mode.SRC_ATOP);
+                            speechButton.invalidate();
+                        }
+
                         break;
                         // End
                     case MotionEvent.ACTION_UP:
-                        new CountDownTimer(500,1000) {
-                            @Override
-                            public void onTick(long millisUntilFinished) {
-                               //  TODO AUTO-generated method stub
+                        if(story.isStillGoing()) {
+                            new CountDownTimer(500, 1000) {
+                                @Override
+                                public void onTick(long millisUntilFinished) {
+                                    //  TODO AUTO-generated method stub
 
-                            }
-                            @Override
-                            public void onFinish() {
-                                speechRecognizer.stopListening();
-                                speechButton.getBackground().clearColorFilter();
-                                speechButton.invalidate();
-                            }
-                        }.start();
+                                }
+
+                                @Override
+                                public void onFinish() {
+                                    speechRecognizer.stopListening();
+                                    speechButton.getBackground().clearColorFilter();
+                                    speechButton.invalidate();
+                                }
+                            }.start();
+                        }
                     break;
                 }
                 return false;
@@ -168,11 +187,18 @@ public class MainActivity extends Activity {
         OnClickListener clickListener = new OnClickListener() {
             @Override
             public void onClick(View v) {
-                outputStr = userInputText.getText().toString();
-                if(!outputStr.trim().isEmpty()) {
+                if(story.isStillGoing()) {
+                    outputStr = userInputText.getText().toString();
+                    outputStr = outputStr.split(" ", 2)[0];
+                    if (!outputStr.trim().isEmpty()) {
 //                    textOutput.setText(outputStr);
-                    postInput();
-                    userInputText.setText("");
+                        postInput();
+                        userInputText.setText("");
+                    } else {
+                        Toast.makeText(getApplicationContext(),
+                                "Nothing was heard or typed!\nSay or type one verb!", Toast.LENGTH_LONG)
+                                .show();
+                    }
                 }
             }
         };
@@ -189,9 +215,8 @@ public class MainActivity extends Activity {
     }
 
     public void postInput() {
-        scene.genLocation();
-        scene.genEnemy();
-        generatedText = SentenceGenerator.genIntroduction(scene);
+        scene.setAction(outputStr);
+        generatedText = SentenceGenerator.genSentences(story, scene); //SentenceGenerator.genIntroduction(scene);
         sceneNum += 1;
         userinputLabel.setText("Scene " + sceneNum + ": " + outputStr);
         textOutput.setText(generatedText);
