@@ -10,7 +10,12 @@ public class Dictionary {
             "kick",
             "spit",
             "scratch",
-            "swat"};
+            "swat",
+            "smash",
+            "crush",
+            "backhand",
+            "bite"
+    };
 
     private static String [] TALK = {
             "talk",
@@ -19,7 +24,9 @@ public class Dictionary {
             "gesture",
             "moan",
             "cry",
-            "laugh"};
+            "laugh",
+            "gossip"
+    };
 
     private static String [] RUN = {
             "run",
@@ -28,7 +35,13 @@ public class Dictionary {
             "jump",
             "crawl",
             "swim",
-            "swing"};
+            "swing",
+            "sprint",
+            "escape",
+            "slide",
+            "gallop",
+            "skip"
+    };
 
     /*
     * 0 is an empty string or ""

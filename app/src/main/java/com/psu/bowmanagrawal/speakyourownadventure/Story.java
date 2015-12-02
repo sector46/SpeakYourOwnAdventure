@@ -10,7 +10,7 @@ public class Story {
     private ArrayList<String> locations;
     private boolean stillGoing;
     private int [] actions = {0, 0, 0, 0}; // Fight, Talk, Run, and Garbage
-    final private int MAX_OBSTACLES_PASSED = 4;
+    final private int MAX_OBSTACLES_PASSED = 3;
 
     public Story() {
         this.obstacles = new ArrayList<String>();

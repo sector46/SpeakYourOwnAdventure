@@ -207,13 +207,6 @@ public class MainActivity extends Activity {
         userInputButton.setOnClickListener(clickListener);
     }
 
-    public void checkEnemyDefeated() {
-        if(scene.getEnemy().isPassed()) {
-
-            scene.genEnemy();
-        }
-    }
-
     public void postInput() {
         scene.setAction(outputStr);
         generatedText = SentenceGenerator.genSentences(story, scene); //SentenceGenerator.genIntroduction(scene);
