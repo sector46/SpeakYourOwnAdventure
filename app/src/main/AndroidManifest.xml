@@ -22,7 +22,7 @@
             android:name=".MainActivity">
         </activity>
         <activity
-            android:name=".Credits">
+            android:name=".CreditsActivity">
         </activity>
     </application>
 

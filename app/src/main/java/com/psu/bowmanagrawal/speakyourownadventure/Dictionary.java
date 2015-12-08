@@ -14,7 +14,11 @@ public class Dictionary {
             "smash",
             "crush",
             "backhand",
-            "bite"
+            "bite",
+            "hit",
+            "tackle",
+            "assault",
+            "struggle"
     };
 
     private static String [] TALK = {
@@ -25,7 +29,13 @@ public class Dictionary {
             "moan",
             "cry",
             "laugh",
-            "gossip"
+            "gossip",
+            "gloat",
+            "communicate",
+            "argue",
+            "lecture",
+            "persuade",
+            "chat"
     };
 
     private static String [] RUN = {
@@ -40,7 +50,12 @@ public class Dictionary {
             "escape",
             "slide",
             "gallop",
-            "skip"
+            "skip",
+            "stroll",
+            "saunter",
+            "dash",
+            "charge",
+            "march"
     };
 
     /*

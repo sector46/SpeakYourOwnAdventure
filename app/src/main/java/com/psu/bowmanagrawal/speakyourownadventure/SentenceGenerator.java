@@ -120,8 +120,8 @@ public class SentenceGenerator {
                         returnStr += nextScene(story, scene);
                         break;
                     case "garbage":
-                        returnStr += "I'm not sure what " + input + " would do, but it seemed to have a profound effect on the " +
-                                     "because the rock just exploded. Try not to worry about it too much. ";
+                        returnStr += "I'm not sure what " + input + " would do, but it seemed to have a profound effect on the rock " +
+                                     " because it just exploded. Try not to worry about it too much. ";
                         returnStr += nextScene(story, scene);
                         break;
                 }
@@ -130,11 +130,11 @@ public class SentenceGenerator {
                 switch (action){
                     case "fight":
                         if(scene.getEnemy().isCompleted()) {
-                            returnStr += "You " + input + " the bear on the nose, the bear's only weak spot. This move gave the bear " +
+                            returnStr += "You " + input + " the bear, hitting its nose, the bear's only weak spot. This move gave the bear " +
                                          "a shock that sent it running for its mama. ";
                             returnStr += nextScene(story, scene);
                         } else {
-                            returnStr += "You decided to " + input + " the bear. Its eyes grew wide and swelled as tears burst from ." +
+                            returnStr += "You decided to " + input + " the bear. Its eyes grew wide and swelled as tears burst from " +
                                     "the bear's face. How could you do that to such a gentle creature? Are you proud of yourself? " +
                                     "With your embarrassingly bad etiquette for greetings established, you must come to a decision " +
                                     "about what to do with the crying bear. ";
