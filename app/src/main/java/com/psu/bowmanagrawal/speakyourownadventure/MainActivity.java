@@ -1,12 +1,15 @@
 package com.psu.bowmanagrawal.speakyourownadventure;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.graphics.PorterDuff;
+import android.os.Build;
 import android.os.Bundle;
 import android.content.Intent;
 import android.os.CountDownTimer;
 import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
+import android.speech.tts.TextToSpeech;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -18,6 +21,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import android.util.Log;
 import android.view.inputmethod.InputMethodManager;
@@ -28,6 +32,8 @@ import android.widget.Toast;
 public class MainActivity extends Activity {
 
     private SpeechRecognizer speechRecognizer;
+    private TextToSpeech speechObj;
+//    private TextToSpeech.OnInitListener initListener;
     private String outputStr = "";
     private String generatedText = "";
     private int sceneNum;
@@ -49,6 +55,13 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+/*        initListener = new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+
+            }
+        }*/
+
         speechRecognizer = SpeechRecognizer.createSpeechRecognizer(this);
         speechButton = (ImageButton) findViewById(R.id.speech_button);
         userInputButton = (ImageButton) findViewById(R.id.userInputConfirmButton);
@@ -68,6 +81,20 @@ public class MainActivity extends Activity {
         generatedText = SentenceGenerator.genIntroduction(story, scene, true);
         textOutput.setText(generatedText);
 
+        speechObj = new TextToSpeech(this.getApplicationContext(), new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                if(status != TextToSpeech.ERROR) {
+                    speechObj.setLanguage(Locale.US);
+                }
+
+                if(Build.VERSION_CODES.LOLLIPOP < Build.VERSION.SDK_INT) {
+                    speechObj.speak(generatedText, TextToSpeech.QUEUE_FLUSH, null, null);
+                } else {
+                    speechObj.speak(generatedText, TextToSpeech.QUEUE_FLUSH, null);
+                }
+            }
+        });
 
         final Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         RecognitionListener recognitionListener = new RecognitionListener() {
@@ -213,6 +240,12 @@ public class MainActivity extends Activity {
         sceneNum += 1;
         userinputLabel.setText("Scene " + sceneNum + ": " + outputStr);
         textOutput.setText(generatedText);
+        if(Build.VERSION_CODES.LOLLIPOP < Build.VERSION.SDK_INT) {
+            speechObj.speak(generatedText, TextToSpeech.QUEUE_FLUSH, null, null);
+        } else {
+            speechObj.speak(generatedText, TextToSpeech.QUEUE_FLUSH, null);
+        }
+
     }
 
     @Override
@@ -262,5 +295,19 @@ public class MainActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        speechRecognizer.stopListening();
+        speechRecognizer.destroy();
+        speechObj.stop();
+        speechObj.shutdown();
+
+    }
+
+    public void createSpeech() {
+
     }
 }

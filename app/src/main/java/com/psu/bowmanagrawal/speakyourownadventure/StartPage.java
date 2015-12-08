@@ -4,11 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
-import android.widget.Toast;
 
 /**
  * Created by shweta on 11/25/2015.
@@ -28,7 +24,7 @@ public class StartPage extends Activity {
         creditsButton = (Button) findViewById(R.id.credits_button);
 
         startIntent = new Intent(this, MainActivity.class);
-        creditsIntent = new Intent(this, Credits.class);
+        creditsIntent = new Intent(this, CreditsActivity.class);
 
         View.OnClickListener startListener = new View.OnClickListener() {
             @Override
