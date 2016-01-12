@@ -23,13 +23,13 @@ to use.
 
 ##Using the app:
 
--To open the app, tap on the "Speak Your Own Adventure" launcher on your device.
--Start a story by tapping on the "Start" button on the startup screen.
--To advance the story, do one of two things:
-    1) Press and hold the microphone (it will turn dark), then say a single verb. When done speaking, release the 
+- To open the app, tap on the "Speak Your Own Adventure" launcher on your device.
+- Start a story by tapping on the "Start" button on the startup screen.
+- To advance the story, do one of two things:
+    1. Press and hold the microphone (it will turn dark), then say a single verb. When done speaking, release the 
        microphone button.
-    2) Tap on the textbox that says, "Say or type a single verb" and an on-screen keyboard will appear. Type a verb using the
+    2. Tap on the textbox that says, "Say or type a single verb" and an on-screen keyboard will appear. Type a verb using the
        keyboard and tap the checkmark icon when finished.
--When you reach the end of a story, hit the back softkey on your device (standard on every Android device) and you will return
+- When you reach the end of a story, hit the back softkey on your device (standard on every Android device) and you will return
  to the startup screen.
--To view the credits for the icons, press the "Credits" button on the startup screen.
+- To view the credits for the icons, press the "Credits" button on the startup screen.
